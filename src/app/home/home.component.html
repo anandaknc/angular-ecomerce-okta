@@ -1,0 +1,18 @@
+<div class="flex-container">
+	<div class="main mfs-full-width">
+		<div class="mfs-search-pills">
+			<div *ngIf="userService.user" class="placeholder mb-3 text-muted text-center">
+				<h4> Hi, {{userService.user.FirstName}} {{userService.user.LastName}}</h4>
+				<h5>Welcome to {{userService.user.APP}}</h5>
+				<p>
+					Your Email-Id is {{userService.user.email}}
+				</p>
+				<p>
+					Session expires at {{userService.user.expDate}}
+				</p>
+				<h3>
+					Message : {{apiResult}}
+				</h3>
+			</div>
+		</div>
+	</div>

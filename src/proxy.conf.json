@@ -1,0 +1,11 @@
+{
+  "/service": {
+    "target": "http://785fb459.ngrok.io",
+    "secure": false,
+    "pathRewrite": {
+      "^/service": ""
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

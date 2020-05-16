@@ -1,0 +1,7 @@
+<a [routerLink]="['/']">
+	<h1>Corporate Banking Online</h1>
+</a>
+<div *ngIf="userService.loggedIn" class="buttons-tool">
+	<a class="button fancy-button" (click)="logoutNew('true')"><i class="material-icons">logout</i>Logout</a>
+	<!-- <a class="button fancy-button" (click)="logoutNew('false')"><i class="material-icons">logout</i>SLO</a> -->
+</div>
