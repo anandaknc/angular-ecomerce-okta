@@ -4,7 +4,7 @@ import * as jwt from "jsonwebtoken";
 
 @Injectable()
 export class UserLgoinService {
-  public baseUrl: string = "https://0dcc6e9b.ngrok.io/";
+  public baseUrl: string = "http://3511b71c1f8b.ngrok.io/";
   public user: any;
   public loggedIn = false;
   constructor() {}
