@@ -11,14 +11,15 @@ export class LoginAuthGuard implements CanActivate {
     private router: Router,
     private userService: UserLgoinService
   ) {}
-  canActivate(
+   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      if(!this.userService.loggedIn){ 
-        this.router.navigate(["login"]);
-        return false;
-        }
-     
+    state: RouterStateSnapshot
+  ): Observable<boolean> | Promise<boolean> | boolean {
+    if (!this.userService.isLoggedIn()) {
+      this.router.navigate(['login']);
+      return false;
+    }
+
     return true;
   }
 }

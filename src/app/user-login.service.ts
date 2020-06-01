@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
 import * as moment from "moment-timezone";
-import * as jwt from "jsonwebtoken";
+
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable()
 export class UserLgoinService {
-  public baseUrl: string = "http://3511b71c1f8b.ngrok.io/";
+  public baseUrl: string = "http://28b7b26195ef.ngrok.io/";
   public user: any;
   public loggedIn = false;
   constructor() {}
@@ -13,16 +14,20 @@ export class UserLgoinService {
     const apiToken = localStorage.getItem("apiToken");
     let loggedIn = false;
 
-    if (apiToken) {
+     if (apiToken) {
+      const helper = new JwtHelperService();
       if (!this.user) {
-        let userObj = jwt.decode(apiToken);
+        const userObj = helper.decodeToken(apiToken);
         if (userObj.exp) {
           userObj.exp = moment.unix(userObj.exp);
         }
         this.user = userObj;
       }
-      if (moment().isBefore(this.user.exp)) {
+      if (!helper.isTokenExpired(apiToken)) {
         loggedIn = true;
+        this.loggedIn = true;
+      }else{
+        this.loggedIn = false;
       }
     }
 

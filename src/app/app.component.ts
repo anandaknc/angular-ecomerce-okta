@@ -5,7 +5,8 @@ import {
   HttpHeaders
 } from "@angular/common/http";
 import { Router } from "@angular/router";
-import * as jwt from "jsonwebtoken";
+
+import { JwtHelperService } from '@auth0/angular-jwt';
 import * as moment from "moment-timezone";
 import { UserLgoinService } from "./user-login.service";
 @Component({
@@ -45,15 +46,34 @@ export class AppComponent implements OnInit {
     this.userService.loggedIn = true;
 
     if (this.apiToken) {
-      let userObj = jwt.decode(apiToken);
+      const helper = new JwtHelperService();
+      const userObj = helper.decodeToken(apiToken);
       if (userObj.exp) {
         userObj.expDate = moment.unix(userObj.exp);
       }
       this.userService.user = userObj;
       this.router.navigate(["home"]);
+      this.logoutNew();
     }
   }
 
+  logoutNew() {
+    const apiToken = localStorage.getItem('apiToken');
+    const logoutUrl = this.userService.baseUrl + 'saml/logout?local=true';
+    this.httpClient
+      .get(logoutUrl, {
+        withCredentials: true,
+        responseType: 'text',
+      })
+      .subscribe(
+        (r) => {
+          console.log('success');
+        },
+        (error) => {
+          console.log('fail');
+        }
+      );
+  }
   handleTokenError(error: HttpErrorResponse) {
     console.log(error);
     // if (error.status === 401) {
