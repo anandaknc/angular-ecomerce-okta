@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
     private userService: UserLgoinService
   ) {}
   ngOnInit() {
-    if(!this.userService.loggedIn){
+    if(!this.userService.isLoggedIn()){
     this.httpClient
       .get(this.userService.baseUrl + "auth/token", {
         withCredentials: true,
